@@ -3,6 +3,7 @@
     "require": {
         "silex/silex": "~2.0",
         "doctrine/dbal": "*",
-        "symfony/yaml": "^3.2"
+        "symfony/yaml": "^3.2",
+        "tifon/rut-php": "1.0.*"
     }
 }
