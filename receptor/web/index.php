@@ -53,6 +53,7 @@ $app->post('/insertar', function (Request $request) use ($app) {
     $isValid = true;
     $errors = array();
 
+    // Validamos los campos.
     if (!Validator::email()->validate($email)) {
         $errors['email'] = 'El email es inválido.';
         $isValid = false;
@@ -62,26 +63,60 @@ $app->post('/insertar', function (Request $request) use ($app) {
         $errors['rut'] = 'El rut es inválido.';
         $isValid = false;
     }
+    else {
+        $rut = RutUtil::formatterRut($rut);
+    }
+
+    if (!Validator::notBlank()->validate($nombre)) {
+        $errors['nombres'] = 'El nombre es requerido.';
+        $isValid = false;
+    }
+
+    if (!Validator::notBlank()->validate($apellido)) {
+        $errors['apellidos'] = 'El apellido es requerido.';
+        $isValid = false;
+    }
+
+    // Revisa si ya existe el rut.
+    $sql = "SELECT * FROM registro_usuario WHERE rut = ? OR email = ?";
+    $results = $app['db']->fetchAll($sql, array($rut, $email));
+    foreach($results as $result) {
+        if ($result['email'] == $email) {
+            $errors['email'] = 'El correo ya existe.';
+            $isValid = false;
+        }
+        if ($result['rut'] == $rut) {
+            $errors['rut'] = 'El rut ya existe.';
+            $isValid = false;
+        }
+    }
+
 
     $response = new JsonResponse();
 
     if ($isValid) {
         $sql = "
           INSERT INTO registro_usuario(nombres, apellidos, email, rut, ip)
-          VALUES (?, ?, ?, ?)
+          VALUES (?, ?, ?, ?, ?)
         ";
 
-        $app['db']->executeUpdate($sql, array($nombre, $apellido, $email, $rut, $ip));
-        $response->setData(array(
-            'status' => true,
-        ));
+        try {
+            $app['db']->executeUpdate($sql, array($nombre, $apellido, $email, $rut, $ip));
+            $response->setData(array(
+                'status' => true,
+            ));
+
+            return $response;
+        }
+        catch (\Exception $exp) {
+            $errors['db'] = 'Problemas en la base de datos.' . $exp->getMessage();
+        }
     }
-    else {
-        $response->setData(array(
-            'status' => false,
-            'errors' => $errors,
-        ));
-    }
+
+    $response->setData(array(
+        'status' => false,
+        'errors' => $errors,
+    ));
 
 
     return $response;

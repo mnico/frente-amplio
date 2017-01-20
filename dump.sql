@@ -36,6 +36,8 @@ CREATE TABLE `registro_usuario` (
 --
 -- Dumping data for table `registro_usuario`
 --
+ALTER TABLE `registro_usuario`
+ ADD UNIQUE KEY `email` (`email`), ADD UNIQUE KEY `rut` (`rut`);
 
 LOCK TABLES `registro_usuario` WRITE;
 /*!40000 ALTER TABLE `registro_usuario` DISABLE KEYS */;
