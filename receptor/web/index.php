@@ -5,8 +5,11 @@ ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Yaml\Parser;
+use Respect\Validation\Validator;
+use Tifon\Rut\RutUtil;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -25,31 +28,61 @@ $dbConfig = $yamlParser->parse(file_get_contents($path . '/db.yml'));
 $app->register(new Silex\Provider\DoctrineServiceProvider(), $dbConfig);
 
 
+$app->get('/test', function(Request $request) use ($app) {
+
+
+    $response = new JsonResponse();
+    $response->setData(array(
+        'data' => 123
+    ));
+
+    return $response;
+});
+
 /**
  * Inserts a pageview and click into the database
  */
 $app->post('/insertar', function (Request $request) use ($app) {
 
-    $nombre   = $request->get('nombre');
-    $apellido = $request->get('apellido');
+    $nombre   = $request->get('nombres');
+    $apellido = $request->get('apellidos');
     $email    = $request->get('email');
+    $rut      = $request->get('rut');
     $ip       = $request->getClientIp();
 
-    $sql = "
-      INSERT INTO registro_usuario(nombre, apellido, email, ip)
-      VALUES (?, ?, ?, ?)
-    ";
+    $isValid = true;
+    $errors = array();
 
-    $app['db']->executeUpdate($sql, array($nombre, $apellido, $email, $ip));
+    if (!Validator::email()->validate($email)) {
+        $errors['email'] = 'El email es inválido.';
+        $isValid = false;
+    }
 
-    $response = new Response();
-   // $session   = $request->get('session');
-//    $response->setContent(json_encode($session));
-    $response->setStatusCode(Response::HTTP_OK);
-    $response->headers->set('Content-Type', 'text/html');
-    $response->headers->set('access-control-allow-origin', '*');
+    if (!RutUtil::validateRut($rut)) {
+        $errors['rut'] = 'El rut es inválido.';
+        $isValid = false;
+    }
 
-    // prints the HTTP headers followed by the content
+    $response = new JsonResponse();
+
+    if ($isValid) {
+        $sql = "
+          INSERT INTO registro_usuario(nombres, apellidos, email, rut, ip)
+          VALUES (?, ?, ?, ?)
+        ";
+
+        $app['db']->executeUpdate($sql, array($nombre, $apellido, $email, $rut, $ip));
+        $response->setData(array(
+            'status' => true,
+        ));
+    }
+    else {
+        $response->setData(array(
+            'status' => false,
+            'errors' => $errors,
+        ));
+    }
+
 
     return $response;
 });

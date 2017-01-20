@@ -3,7 +3,7 @@
 
     RewriteEngine On
     # Reescribir la linea para cada instalacion en particular
-    RewriteBase /~francort/frente_amplio/receptor/web
+    RewriteBase /
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [QSA,L]
 </IfModule>
