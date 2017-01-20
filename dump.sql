@@ -28,6 +28,7 @@ CREATE TABLE `registro_usuario` (
   `apellidos` varchar(255) NOT NULL,
   `rut` varchar(13) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `created` int(10) unsigned NOT NULL,
   `ip` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

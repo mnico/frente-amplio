@@ -96,12 +96,12 @@ $app->post('/insertar', function (Request $request) use ($app) {
 
     if ($isValid) {
         $sql = "
-          INSERT INTO registro_usuario(nombres, apellidos, email, rut, ip)
-          VALUES (?, ?, ?, ?, ?)
+          INSERT INTO registro_usuario(nombres, apellidos, email, rut, ip, created)
+          VALUES (?, ?, ?, ?, ?, ?)
         ";
 
         try {
-            $app['db']->executeUpdate($sql, array($nombre, $apellido, $email, $rut, $ip));
+            $app['db']->executeUpdate($sql, array($nombre, $apellido, $email, $rut, $ip, time()));
             $response->setData(array(
                 'status' => true,
             ));
