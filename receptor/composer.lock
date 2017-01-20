@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "237fbf33180f2339edcac5b0cbb797f8",
-    "content-hash": "06c388d5be23a3deafa202b82f6e572b",
+    "hash": "eadc98b889b4f50ff0c476b607855866",
+    "content-hash": "d75cbad16b8d37301d03c4c92d8fd0d3",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -570,6 +570,71 @@
             "time": "2016-10-10 12:19:37"
         },
         {
+            "name": "respect/validation",
+            "version": "1.1.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Respect/Validation.git",
+                "reference": "710e807a68aa79b992d85defb60b36a59745ae91"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Respect/Validation/zipball/710e807a68aa79b992d85defb60b36a59745ae91",
+                "reference": "710e807a68aa79b992d85defb60b36a59745ae91",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "symfony/polyfill-mbstring": "^1.2"
+            },
+            "require-dev": {
+                "egulias/email-validator": "~1.2",
+                "malkusch/bav": "~1.0",
+                "mikey179/vfsstream": "^1.5",
+                "phpunit/phpunit": "~4.0",
+                "symfony/validator": "~2.6.9",
+                "zendframework/zend-validator": "~2.3"
+            },
+            "suggest": {
+                "egulias/email-validator": "Strict (RFC compliant) email validation",
+                "ext-bcmath": "Arbitrary Precision Mathematics",
+                "ext-mbstring": "Multibyte String Functions",
+                "fabpot/php-cs-fixer": "Fix PSR2 and other coding style issues",
+                "malkusch/bav": "German bank account validation",
+                "symfony/validator": "Use Symfony validator through Respect\\Validation",
+                "zendframework/zend-validator": "Use Zend Framework validator through Respect\\Validation"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Respect\\Validation\\": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD Style"
+            ],
+            "authors": [
+                {
+                    "name": "Respect/Validation Contributors",
+                    "homepage": "https://github.com/Respect/Validation/graphs/contributors"
+                }
+            ],
+            "description": "The most awesome validation engine ever created for PHP",
+            "homepage": "http://respect.github.io/Validation/",
+            "keywords": [
+                "respect",
+                "validation",
+                "validator"
+            ],
+            "time": "2016-10-29 13:29:17"
+        },
+        {
             "name": "silex/silex",
             "version": "v2.0.4",
             "source": {
@@ -1094,6 +1159,55 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2017-01-03 13:51:32"
+        },
+        {
+            "name": "tifon/rut-php",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Tifon-/rut-php.git",
+                "reference": "13d94216dd4eba8619066a820c063f51cae28f6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Tifon-/rut-php/zipball/13d94216dd4eba8619066a820c063f51cae28f6c",
+                "reference": "13d94216dd4eba8619066a820c063f51cae28f6c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tifon\\Rut\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Moncada",
+                    "email": "moncada.nicolas@gmail.com"
+                },
+                {
+                    "name": "TIFON",
+                    "homepage": "http://tifon.cl"
+                }
+            ],
+            "description": "Rut library",
+            "homepage": "https://github.com/Tifon-/rut-php",
+            "keywords": [
+                "chile",
+                "run",
+                "rut"
+            ],
+            "time": "2015-07-16 23:48:51"
         }
     ],
     "packages-dev": [],

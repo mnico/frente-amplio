@@ -4,6 +4,7 @@
         "silex/silex": "~2.0",
         "doctrine/dbal": "*",
         "symfony/yaml": "^3.2",
-        "tifon/rut-php": "1.0.*"
+        "tifon/rut-php": "1.0.*",
+        "respect/validation": "^1.1"
     }
 }
