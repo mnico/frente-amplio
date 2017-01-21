@@ -1,7 +1,7 @@
 db.options:
         driver  : pdo_mysql
-        host    : localhost
-        dbname  : francort_frente_amplio
-        user    : francort
-        password: francort
+        host    : db
+        dbname  : drupal
+        user    : drupal
+        password: 123
         charset : utf8mb4
