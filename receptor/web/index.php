@@ -28,12 +28,12 @@ $dbConfig = $yamlParser->parse(file_get_contents($path . '/db.yml'));
 $app->register(new Silex\Provider\DoctrineServiceProvider(), $dbConfig);
 
 
-$app->get('/test', function(Request $request) use ($app) {
-
-
+$app->get('/count', function(Request $request) use ($app) {
+    $sql = "SELECT COUNT(id) as countRegisters FROM registro_usuario";
+    $results = $app['db']->fetchAssoc($sql);
     $response = new JsonResponse();
     $response->setData(array(
-        'data' => 123
+        'count' => $results['countRegisters'],
     ));
 
     return $response;
